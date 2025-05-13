@@ -1,10 +1,26 @@
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Services</title>
-</head>
-<body>
-    <h1>these are our services</h1>
-</body>
-</html>
+<?php
+$page_title = "Services - CitrusApp";
+include 'includes/header.php';
+?>
+
+<section class="section">
+    <h1 class="section-title">Our Services</h1>
+    <p>Discover the range of services we offer to help you succeed.</p>
+</section>
+
+<div class="card">
+    <h3>Service 1</h3>
+    <p>Description of our first service and how it can benefit you.</p>
+</div>
+
+<div class="card">
+    <h3>Service 2</h3>
+    <p>Description of our second service and how it can benefit you.</p>
+</div>
+
+<div class="card">
+    <h3>Service 3</h3>
+    <p>Description of our third service and how it can benefit you.</p>
+</div>
+
+<?php include 'includes/footer.php'; ?>

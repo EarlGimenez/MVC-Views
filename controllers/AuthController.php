@@ -2,8 +2,8 @@
 
 namespace Controllers;
 
-use \Firebase\JWT\JWT;
-use Responses\Response;
+session_start();
+
 use Requests\RequestInterface;
 use Controllers\ViewController;
 use Models\DataRepositoryInterface;
@@ -27,7 +27,9 @@ class AuthController {
         if (empty($user) || !password_verify($data['password'], $user[0]['password'])) {
             $controller->redirect('/error');
         }
-        
+
+        $_SESSION['user_id'] = $user[0]['id'];
+
         $controller->redirect('/dashboard');
     }
 
@@ -48,22 +50,8 @@ class AuthController {
         $controller->redirect('/homepage');
     }
 
-    private function generateJWT($userId, $username) {
-        $secretKey = "the_secret_lies_in_the_sauce";
-        $issuedAt = time();
-        $expirationTime = $issuedAt + 3600;
-
-        $payload = [
-            'iat' => $issuedAt,
-            'exp' => $expirationTime,
-            'userId' => $userId,
-            'username' => $username
-        ];
-
-        return JWT::encode($payload, $secretKey, 'HS256');
-    }
-
     public function logout() {
+        session_destroy();
         header("Location: /");
         exit;
     }

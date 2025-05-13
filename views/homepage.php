@@ -1,27 +1,43 @@
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Homepage</title>
-</head>
-<body>
-    <h1>This is the homepage</h1>
-    <div style="border: 3px black solid">
+<?php
+$page_title = "Home - CitrusApp";
+include 'includes/header.php';
+?>
+
+<section class="section">
+    <h1 class="section-title">Welcome to CitrusApp</h1>
+    <p>This is the homepage of our application. Please login or register to continue.</p>
+</section>
+
+<div class="form-container">
+    <div class="form-card">
+        <h3 class="form-title">Login</h3>
         <form action="/login" method="POST">
-            <h3>Login</h3>
-            Username<input type="text" placeholder="Username" name="username"><br>
-            Password<input type="password" placeholder="Password" name="password"><br>
-            <input type="submit" placeholder="submit">
+            <div class="form-group">
+                <label for="login-username">Username</label>
+                <input type="text" id="login-username" class="form-control" placeholder="Enter your username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="login-password">Password</label>
+                <input type="password" id="login-password" class="form-control" placeholder="Enter your password" name="password" required>
+            </div>
+            <button type="submit" class="btn">Login</button>
         </form>
     </div>
-    <div style="border: 3px black solid">
+    
+    <div class="form-card">
+        <h3 class="form-title">Register</h3>
         <form action="/register" method="POST">
-            <h3>Register</h3>
-            Username<input type="text" placeholder="Username" name="username"><br>
-            Password<input type="text" placeholder="Password" name="password"><br>
-            <!-- Confirm Password<input type="text" placeholder="Confirm Password"><br> -->
-            <button>Submit</button>
+            <div class="form-group">
+                <label for="register-username">Username</label>
+                <input type="text" id="register-username" class="form-control" placeholder="Choose a username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="register-password">Password</label>
+                <input type="password" id="register-password" class="form-control" placeholder="Choose a password" name="password" required>
+            </div>
+            <button type="submit" class="btn">Register</button>
         </form>
     </div>
-</body>
-</html>
+</div>
+
+<?php include 'includes/footer.php'; ?>

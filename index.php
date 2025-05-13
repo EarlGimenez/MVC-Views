@@ -2,74 +2,62 @@
 require_once 'init.php';
 
 use Models\DBORM;
-use Routes\Router;
 use Models\Database;
-use Requests\Request;
-use Routes\RouteMatcher;
 use Models\UserRepository;
 use Models\StudentRepository;
+
+use Requests\Request;
+use Routes\Router;
+use Routes\RouteMatcher;
+
 use Controllers\AuthController;
 use Controllers\UserController;
 use Controllers\ViewController;
 use Controllers\StudentController;
+use Controllers\StudentViewController;
+use Responses\Response;
 
-$dbname = 'php_rest';
+// ---------------------- Configuration ----------------------
 
-// Initialize the database connection
-$db = new Database('localhost', 'root', 'root', $dbname);
+$dbHost = 'localhost';
+$dbUser = 'root';
+$dbPass = 'root';
+$dbName = 'orm';
 
-// Initialize the request object
+// ---------------------- Dependencies ----------------------
+
+// Core
 $request = new Request();
+$database = new Database($dbHost, $dbUser, $dbPass, $dbName);
+$dborm = new DBORM("mysql:host=$dbHost;dbname=$dbName", $dbUser, $dbPass);
 
-// ------------------------------------------------------------------------------------
-// Initialize the DBORM instance
-$dborm = new DBORM('mysql:host=localhost;dbname='. $dbname, 'root', 'root');
-
-// Initialize the student repository
+// Repositories
+$userRepository = new UserRepository($database);
 $studentRepository = new StudentRepository($dborm);
 
-// Initialize the student controller
-$studentController = new StudentController($studentRepository, $request);
-// ------------------------------------------------------------------------------------
-
-// Initialize the user repository
-$userRepository = new UserRepository($db);
-
-// Initialize the user controller with dependencies
-$controller = new UserController($userRepository, $request);
-
-// ------------------------------------------------------------------------------------
-
-//View Controller
+// Controllers
 $viewController = new ViewController();
-
-//------------------------------------------------------------------------------------
-
-// Initialize the Auth controller with dependencies
 $authController = new AuthController($userRepository, $request);
+$userController = new UserController($userRepository, $request);
+$studentController = new StudentController($studentRepository, $request);
+$studentViewController = new StudentViewController($studentRepository, $viewController);
 
-//-------------------------------------------------------------------------------------
-// Load routes
+
+// ---------------------- Routing ----------------------
+
 $routes = include __DIR__ . '/routes/routes.php';
-
-// Initialize the router
 $router = new Router($request, new RouteMatcher());
 
-// Register routes
 foreach ($routes as $route) {
     $router->addRoute($route['method'], $route['path'], $route['handler']);
 }
 
-// Dispatch the request
+// ---------------------- Dispatch ----------------------
+
 $response = $router->dispatch();
 
-if (strpos($request->getPath(), '/api') === 0) {
+if (str_starts_with($request->getPath(), '/api') && $response instanceof Response) {
     http_response_code($response->getStatusCode());
     header('Content-Type: application/json');
     echo $response->getBody();
 }
-else {
-    $viewController->error();
-}
-
-

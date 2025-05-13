@@ -225,7 +225,7 @@ class DBORM implements iDBFuncs
             //-------------------------------------------------
             $this->lastQuery = $this->sql;
             //-------------------------------------------------
-
+            
             //binding values as parameters
             $numberOfValuesInValueBag = count($this->valueBag);
 
@@ -250,6 +250,7 @@ class DBORM implements iDBFuncs
                 $valueCounter++;
             }
 
+            
             //Executing the prepared statement
             $dbStatement->execute();
             $this->valueBag = []; //reset the value bag to an empty state

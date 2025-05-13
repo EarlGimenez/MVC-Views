@@ -24,6 +24,26 @@ class ViewController {
         include __DIR__ . "/../views/dashboard.php";
         exit;
     }
+    public function studentsIndex($students, $page, $totalPages, $perPage, $total) {
+        include __DIR__ . '/../views/students/index.php';
+        exit;
+    }
+
+    public function studentsCreate() {
+        include __DIR__ . '/../views/students/create.php';
+        exit;
+    }
+
+    public function studentsShow($student) {
+        include __DIR__ . '/../views/students/show.php';
+        exit;
+    }
+
+    public function studentsEdit($student) {
+        include __DIR__ . '/../views/students/edit.php';
+        exit;
+    }
+
     function redirect(string $path) {
         header("Location: $path");
         exit;
