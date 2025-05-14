@@ -20,19 +20,19 @@ return [
         'method' => 'GET', 
         'path' => '/services', 
         'handler' => function ()  use ($viewController) { return $viewController->services(); },
-        'middleware' => [GuestMiddleware::class]
+        'middleware' => []
     ],
     [
         'method' => 'GET', 
         'path' => '/about-us', 
         'handler' => function ()  use ($viewController) { return $viewController->about(); },
-        'middleware' => [GuestMiddleware::class]
+        'middleware' => []
     ],
     [
         'method' => 'GET', 
         'path' => '/error', 
         'handler' => function ()  use ($viewController) { return $viewController->error(); },
-        'middleware' => [GuestMiddleware::class]
+        'middleware' => []
     ],
     [
         'method' => 'POST', 

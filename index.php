@@ -62,12 +62,12 @@ if (str_starts_with($request->getPath(), '/api') && $response instanceof Respons
     header('Content-Type: application/json');
     echo $response->getBody();
 }
-else if( $response instanceof Response ) {
-    $header = $response->getHeaders();
-    $viewController->redirect($header['Location']);
-}
 else {
-    http_response_code($response->getStatusCode());
-    $viewController->error();
+    $header = $response->getHeaders();
+    if ($header) $viewController->redirect($header['Location']);
+    else {
+        http_response_code($response->getStatusCode());
+        $viewController->error();
+    }
 }
 
