@@ -16,42 +16,38 @@ class Router {
         $this->routeMatcher = $routeMatcher;
     }
 
-    public function addRoute($method, $path, $handler) {
+    public function addRoute($method, $path, $handler, $middleware = []) {
         $this->routes[] = [
             'method' => strtoupper($method),
             'path' => $path,
-            'handler' => $handler
+            'handler' => $handler,
+            'middleware' => $middleware
         ];
     }
 
-    // JWT implementations -----------------------------------------------------------------------------------------------------------------------------------
     public function dispatch() {
-        $match = $this->routeMatcher->match(
-            $this->routes,
-            $this->request->getMethod(),
-            $this->request->getPath()
-        );
-    
-        if ($match) {
-            $path = $this->request->getPath();
+            $match = $this->routeMatcher->match(
+                $this->routes,
+                $this->request->getMethod(),
+                $this->request->getPath()
+            );
             
-            // Explicit public API routes
-            $publicApiRoutes = ['/api/login', '/api/register'];
-    
-            // If the path starts with /api but is not in the public list, require auth
-            if (str_starts_with($path, '/api') && !in_array($path, $publicApiRoutes)) {
-                $authMiddleware = new AuthMiddleware();
-                $authResponse = $authMiddleware->handle($this->request);
-                if ($authResponse instanceof Response) {
-                    return $authResponse;
+            if ($match) {
+                // Check for middleware
+                if (isset($match['middleware'])) {
+                    foreach ($match['middleware'] as $middlewareClass) {
+                        $middleware = new $middlewareClass();
+                        $response = $middleware->handle($this->request);
+                        if ($response instanceof Response) {
+                            return $response; // Redirect or reject
+                        }
+                    }
                 }
+
+                // Call the handler if middleware passed
+                return call_user_func_array($match['handler'], array_values($match['params']));
             }
-    
-            // Proceed normally for public API or non-API routes
-            return call_user_func_array($match['handler'], array_values($match['params']));
-        }
-    
-        return new Response(404, json_encode(['error' => 'Not Found']));
-    }
-    
+        
+            return new Response(404, json_encode(['error' => 'Not Found']));
+        }    
 }

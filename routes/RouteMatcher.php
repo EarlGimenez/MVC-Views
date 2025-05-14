@@ -24,10 +24,13 @@ class RouteMatcher {
             // error_log("Matching request path: '$requestPath' against pattern: '$pattern'");
   
             if ($route['method'] === $requestMethod && preg_match($pattern, $requestPath, $matches)) {
-                return [
+                $matched = [
                     'handler' => $route['handler'],
-                    'params' => array_filter($matches, 'is_string', ARRAY_FILTER_USE_KEY)
+                    'params' => array_filter($matches, 'is_string', ARRAY_FILTER_USE_KEY),
+                    'middleware' => $route['middleware'] ?? [] 
                 ];
+
+                return $matched;
             }
         }
   

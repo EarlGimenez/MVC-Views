@@ -1,6 +1,8 @@
 <?php
 require_once 'init.php';
 
+session_start();
+
 use Models\DBORM;
 use Models\Database;
 use Models\UserRepository;
@@ -47,9 +49,8 @@ $studentViewController = new StudentViewController($studentRepository, $viewCont
 
 $routes = include __DIR__ . '/routes/routes.php';
 $router = new Router($request, new RouteMatcher());
-
 foreach ($routes as $route) {
-    $router->addRoute($route['method'], $route['path'], $route['handler']);
+    $router->addRoute($route['method'], $route['path'], $route['handler'], $route['middleware']);
 }
 
 // ---------------------- Dispatch ----------------------
@@ -61,3 +62,12 @@ if (str_starts_with($request->getPath(), '/api') && $response instanceof Respons
     header('Content-Type: application/json');
     echo $response->getBody();
 }
+else if( $response instanceof Response ) {
+    $header = $response->getHeaders();
+    $viewController->redirect($header['Location']);
+}
+else {
+    http_response_code($response->getStatusCode());
+    $viewController->error();
+}
+

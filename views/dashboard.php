@@ -1,10 +1,4 @@
 <?php
-// Check if user is logged in, if not redirect to homepage
-if (!isset($_SESSION['user_id'])) {
-    header('Location: /');
-    exit;
-}
-
 $page_title = "Dashboard - CitrusApp";
 include 'includes/header.php';
 ?>
