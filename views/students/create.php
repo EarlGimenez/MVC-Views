@@ -9,12 +9,14 @@ include dirname(__DIR__) . '/includes/header.php';
     <div class="card">
         <form action="/students" method="POST">
             <div class="form-group">
-                <label for="id">id</label>
-                <input type="text" id="id" name="id" class="form-control" placeholder="Enter student id" required>
-                <label for="username">Username</label>
-                <input type="text" id="username" name="username" class="form-control" placeholder="Enter student username" required>
-                <label for="email">email</label>
-                <input type="text" id="email" name="email" class="form-control" placeholder="Enter student email" required>
+                <?php
+                    foreach ($columns as $column) {
+                        echo "
+                        <label for=\"".$column."\">".$column."</label>
+                        <input type=\"text\" id=\"".$column."\" name=\"".$column."\" class=\"form-control\" placeholer=\"Enter student". $column ."\" required>
+                        ";
+                    }
+                ?>
             </div>
             
             <div class="form-actions">
@@ -27,10 +29,4 @@ include dirname(__DIR__) . '/includes/header.php';
 
 <?php include dirname(__DIR__) . '/includes/footer.php'; ?>
 
-<!-- $keys = array_keys($student);
-foreach ($keys as $key) {
-    echo "
-    <label for=\"".$key."\">".$key."</label>
-    <input type=\"text\" id=\"".$key."\" name=\"".$key."\" class=\"form-control\" placeholer=\"Enter student". $key ."\" required>
-    ";
-} -->
+

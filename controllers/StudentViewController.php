@@ -24,7 +24,9 @@ class StudentViewController {
     }
 
     public function create() {
-        $this->view->studentsCreate();
+        $columns = $this->repository->getColumns();
+
+        $this->view->studentsCreate($columns);
     }
 
     public function store()

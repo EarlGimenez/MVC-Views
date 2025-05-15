@@ -312,4 +312,27 @@ class DBORM implements iDBFuncs
 
         return $result;
     }
+
+    public function getColumnNames(string $table): array
+    {
+        try {
+            $this->sql = "SELECT COLUMN_NAME 
+                        FROM INFORMATION_SCHEMA.COLUMNS 
+                        WHERE TABLE_SCHEMA = DATABASE() 
+                        AND TABLE_NAME = ?";
+            
+            $this->valueBag = [$table];
+            $result = $this->getAll();
+            
+            // Transform the nested array into a simple array of column names
+            $columns = array_map(function($item) {
+                return $item['COLUMN_NAME'];
+            }, $result);
+            
+            return $columns;
+        } catch (Exception $e) {
+            error_log("Error getting column names: " . $e->getMessage());
+            return [];
+        }
+    }
 }

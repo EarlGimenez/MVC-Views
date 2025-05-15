@@ -29,7 +29,7 @@ class ViewController {
         exit;
     }
 
-    public function studentsCreate() {
+    public function studentsCreate($columns) {
         include __DIR__ . '/../views/students/create.php';
         exit;
     }

@@ -38,13 +38,8 @@ class StudentRepository implements DataRepositoryInterface
         $this->db->table('students')->where('id', $id)->delete();
     }
     
-    public function getStudentColumns()
+    public function getColumns() 
     {
-        $columns = $this->db->select(['COLUMN_NAME'])
-                            ->from('INFORMATION_SCHEMA.COLUMNS')
-                            ->where('students', 'students')
-                            ->getAll();
-
-        return array_map(fn($column) => $column['COLUMN_NAME'], $columns);
+       return $this->db->table('students')->getColumnNames('students');
     }
 }
