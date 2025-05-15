@@ -19,7 +19,7 @@ $is_student_page = ($current_dir === 'students');
     <header class="header">
         <div class="container">
             <nav class="navbar">
-                <a href="/" class="logo">CitrusApp</a>
+                <a href="/" class="logo">MVC Views</a>
                 <div class="menu-toggle" id="menuToggle">☰</div>
                 <ul class="nav-links" id="navLinks">
                     <li><a href="/" class="<?php echo $current_page == 'homepage.php' ? 'active' : ''; ?>">Home</a></li>

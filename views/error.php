@@ -1,5 +1,5 @@
 <?php
-$page_title = "Error - CitrusApp";
+$page_title = "Error - MVC Views";
 include 'includes/header.php';
 ?>
 

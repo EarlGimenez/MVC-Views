@@ -1,5 +1,5 @@
 <?php
-$page_title = "Student Details - CitrusApp";
+$page_title = "Student Details - MVC Views";
 include dirname(__DIR__) . '/includes/header.php';
 ?>
 
@@ -7,14 +7,18 @@ include dirname(__DIR__) . '/includes/header.php';
     <h1 class="section-title">Student Details</h1>
     
     <div class="card">
-        <div class="detail-item">
-            <strong>ID:</strong> 
-            <span><?= htmlspecialchars($student['id']) ?></span>
-        </div>
-        <div class="detail-item">
-            <strong>Username:</strong> 
-            <span><?= htmlspecialchars($student['username']) ?></span>
-        </div>
+
+        <?php
+            $keys = array_keys($student);
+            foreach ($keys as $key) {
+                echo "
+                <div class=\"detail-item\">
+                <strong>".$key.":</strong> 
+                <span>".htmlspecialchars($student[$key])."</span>
+                </div>
+                ";
+            }
+        ?>
         
         <div class="action-buttons" style="margin-top: 1.5rem;">
             <a href="/students" class="btn btn-outline">Back to List</a>
@@ -24,3 +28,4 @@ include dirname(__DIR__) . '/includes/header.php';
 </section>
 
 <?php include dirname(__DIR__) . '/includes/footer.php'; ?>
+

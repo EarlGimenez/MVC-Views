@@ -15,7 +15,7 @@ class StudentViewController {
     }
 
     public function index($page = 1) {
-        $perPage = 10;
+        $perPage = 5;
         $all = $this->repository->getAll();
         $total = count($all);
         $totalPages = ceil($total / $perPage);
@@ -29,12 +29,7 @@ class StudentViewController {
 
     public function store()
     {
-        $data = [
-            // Trick MySQL into auto-increment: use 0, not NULL
-            'id'       => 0,
-            'username' => $_POST['username'] ?? '',
-        ];
-
+        $data = $_POST;
         $this->repository->create($data);
         header('Location: /students');
         exit;
@@ -65,4 +60,7 @@ class StudentViewController {
         header('Location: /students');
         exit;
     }
+
+
+
 }

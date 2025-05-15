@@ -20,13 +20,13 @@ return [
         'method' => 'GET', 
         'path' => '/services', 
         'handler' => function ()  use ($viewController) { return $viewController->services(); },
-        'middleware' => []
+        'middleware' => [WebAuthMiddleware::class]
     ],
     [
         'method' => 'GET', 
         'path' => '/about-us', 
         'handler' => function ()  use ($viewController) { return $viewController->about(); },
-        'middleware' => []
+        'middleware' => [WebAuthMiddleware::class]
     ],
     [
         'method' => 'GET', 
@@ -64,7 +64,8 @@ return [
             $page = isset($_GET['page']) ? (int) $_GET['page'] : 1; 
             return $studentViewController->index($page); 
         },
-        'middleware' => [WebAuthMiddleware::class]],
+        'middleware' => [WebAuthMiddleware::class]
+    ],
     [
         'method' => 'GET', 
         'path' => '/students/create', 

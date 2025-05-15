@@ -23,7 +23,8 @@ class AuthController {
         $user = $this->repository->getByUsername($data['username']);
 
         if (empty($user) || !password_verify($data['password'], $user[0]['password'])) {
-            $controller->redirect('/error');
+            $_SESSION['invalid_login'] = "Wrong Password. Try Again!";
+            $controller->redirect('/');
         }
 
         $_SESSION['user_id'] = $user[0]['id'];
@@ -37,15 +38,14 @@ class AuthController {
 
         $existingUser = $this->repository->getByUsername($data['username']);
         if (!empty($existingUser)) {
-            echo "User already exists";
-            exit;
+            $_SESSION['invalid_register'] = "Username already taken. Please try again!";
+            $controller->redirect('/');
         }
 
         $data['password'] = password_hash($data['password'], PASSWORD_BCRYPT);
         $this->repository->create($data);
 
-        // return new Response(201, json_encode(['message' => 'User created successfully']));
-        $controller->redirect('/homepage');
+        $controller->redirect('/');
     }
 
     public function logout() {

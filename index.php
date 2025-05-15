@@ -24,7 +24,7 @@ use Responses\Response;
 $dbHost = 'localhost';
 $dbUser = 'root';
 $dbPass = 'root';
-$dbName = 'orm';
+$dbName = 'php_rest';
 
 // ---------------------- Dependencies ----------------------
 

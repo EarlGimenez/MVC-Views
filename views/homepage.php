@@ -1,10 +1,10 @@
 <?php
-$page_title = "Home - CitrusApp";
+$page_title = "Home - MVC Views";
 include 'includes/header.php';
 ?>
 
 <section class="section">
-    <h1 class="section-title">Welcome to CitrusApp</h1>
+    <h1 class="section-title">Welcome to MVC Views</h1>
     <p>This is the homepage of our application. Please login or register to continue.</p>
 </section>
 
@@ -20,6 +20,7 @@ include 'includes/header.php';
                 <label for="login-password">Password</label>
                 <input type="password" id="login-password" class="form-control" placeholder="Enter your password" name="password" required>
             </div>
+            <?php if(isset($_SESSION['invalid_login'])) { echo '<div style=\'color:red\'>'. $_SESSION['invalid_login'] .'</div><br>'; unset($_SESSION['invalid_login']);} ?>
             <button type="submit" class="btn">Login</button>
         </form>
     </div>
@@ -35,6 +36,7 @@ include 'includes/header.php';
                 <label for="register-password">Password</label>
                 <input type="password" id="register-password" class="form-control" placeholder="Choose a password" name="password" required>
             </div>
+            <?php if(isset($_SESSION['invalid_register'])) { echo '<div style=\'color:red\'>'. $_SESSION['invalid_register'] .'</div><br>'; unset($_SESSION['invalid_register']);} ?>
             <button type="submit" class="btn">Register</button>
         </form>
     </div>

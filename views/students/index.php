@@ -1,5 +1,5 @@
 <?php
-$page_title = "Student List - CitrusApp";
+$page_title = "Student List - MVC Views";
 include dirname(__DIR__) . '/includes/header.php';
 ?>
 
@@ -18,16 +18,25 @@ include dirname(__DIR__) . '/includes/header.php';
             <table class="table">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Name</th>
+                        <?php
+                            $student = $students[0];
+                            $keys = array_keys($student);
+                            foreach ($keys as $key){
+                                echo '<th>'. $key .'</th>';
+                            }
+                        ?>
                         <th class="text-right">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach ($students as $student): ?>
                     <tr>
-                        <td><?= htmlspecialchars($student['id']) ?></td>
-                        <td><?= htmlspecialchars($student['username']) ?></td>
+                        <?php 
+                            $keys = array_keys($student); 
+                            foreach ($keys as $key){
+                                echo '<td>'. htmlspecialchars($student[$key]).'</td>';
+                            }
+                        ?>
                         <td class="actions text-right">
                             <div class="action-buttons">
                                 <a href="/students/<?= $student['id'] ?>" class="btn btn-sm btn-view" title="View">

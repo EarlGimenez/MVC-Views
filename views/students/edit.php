@@ -1,5 +1,5 @@
 <?php
-$page_title = "Edit Student - CitrusApp";
+$page_title = "Edit Student - MVC Views";
 include dirname(__DIR__) . '/includes/header.php';
 ?>
 
@@ -8,9 +8,17 @@ include dirname(__DIR__) . '/includes/header.php';
     
     <div class="card">
         <form action="/students/<?= $student['id'] ?>/update" method="POST">
+            
             <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" id="username" name="username" class="form-control" value="<?= htmlspecialchars($student['username']) ?>" required>
+                <?php 
+                    $keys = array_keys($student);
+                    foreach ($keys as $key) {
+                        echo "
+                        <label for=\"".$key."\">".$key."</label>
+                        <input type=\"text\" id=\"".$key."\" name=\"".$key."\" class=\"form-control\" value=\"". htmlspecialchars($student[$key])."\" required>
+                        ";
+                    }
+                ?>
             </div>
             
             <div class="form-actions">

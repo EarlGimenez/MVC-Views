@@ -1,5 +1,5 @@
 <?php
-$page_title = "Dashboard - CitrusApp";
+$page_title = "Dashboard - MVC Views";
 include 'includes/header.php';
 ?>
 
