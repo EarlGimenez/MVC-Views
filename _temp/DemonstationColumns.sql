@@ -10,7 +10,7 @@ CREATE TABLE students (
 CREATE TABLE users (
     id INT PRIMARY KEY AUTO_INCREMENT,
     username VARCHAR(255),
-    password VARCHAR(255),
+    password CHAR(60),
     created_at DATETIME
 );
 

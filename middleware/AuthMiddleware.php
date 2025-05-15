@@ -30,7 +30,7 @@ class AuthMiddleware {
             try {
                 $token = $_COOKIE['token'];
                 $decoded = JWT::decode($token, new Key($this->secretKey, 'HS256'));
-                return null; // Valid cookie token
+                return null; 
             } catch (Exception $e) {
                 $errors[] = "Cookie token error: " . $e->getMessage();
             }

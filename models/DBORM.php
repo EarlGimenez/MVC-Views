@@ -102,12 +102,10 @@ class DBORM implements iDBFuncs
         } elseif ($getMethod === 'getAll') {
             $recordset = $dbStatement->fetchAll(PDO::FETCH_ASSOC) ?: [];
         } else {
-            // catch any typo or mismatch
             throw new Exception("Invalid get method: {$getMethod}");
         }
     
-        // reset state
-        $this->sql = '';
+       $this->sql = '';
         $this->whereInstanceCounter = 0;
         $this->valueBag = [];
     
@@ -267,11 +265,9 @@ class DBORM implements iDBFuncs
 
     public function update(array $values): int
     {
-        // Capture existing WHERE clause and parameters
         $whereClause = $this->sql;
         $whereParams = $this->valueBag;
 
-        // Resetting for good measure
         $this->sql = '';
         $this->valueBag = [];
         $this->whereInstanceCounter = 0;
@@ -324,7 +320,6 @@ class DBORM implements iDBFuncs
             $this->valueBag = [$table];
             $result = $this->getAll();
             
-            // Transform the nested array into a simple array of column names
             $columns = array_map(function($item) {
                 return $item['COLUMN_NAME'];
             }, $result);

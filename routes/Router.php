@@ -33,7 +33,6 @@ class Router {
             );
             
             if ($match) {
-                // Check for middleware
                 if (isset($match['middleware'])) {
                     foreach ($match['middleware'] as $middlewareClass) {
                         $middleware = new $middlewareClass();
@@ -44,7 +43,6 @@ class Router {
                     }
                 }
 
-                // Call the handler if middleware passed
                 return call_user_func_array($match['handler'], array_values($match['params']));
             }
         
