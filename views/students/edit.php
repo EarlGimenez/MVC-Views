@@ -14,8 +14,8 @@ include dirname(__DIR__) . '/includes/header.php';
                     $keys = array_keys($student);
                     foreach ($keys as $key) {
                         echo "
-                        <label for=\"".$key."\">".$key."</label>
-                        <input type=\"text\" id=\"".$key."\" name=\"".$key."\" class=\"form-control\" value=\"". htmlspecialchars($student[$key])."\" required>
+                        <label for=\"".$key."\">".ucfirst($key)."</label>
+                        <input type=\"text\" id=\"".$key."\" name=\"".$key."\" class=\"form-control\" value=\"". htmlspecialchars($student[$key] ?? '')."\">
                         ";
                     }
                 ?>

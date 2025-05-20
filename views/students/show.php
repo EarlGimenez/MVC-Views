@@ -13,8 +13,8 @@ include dirname(__DIR__) . '/includes/header.php';
             foreach ($keys as $key) {
                 echo "
                 <div class=\"detail-item\">
-                <strong>".$key.":</strong> 
-                <span>".htmlspecialchars($student[$key])."</span>
+                <strong>".ucfirst($key).":</strong> 
+                <span>".htmlspecialchars($student[$key] ?? '')."</span>
                 </div>
                 ";
             }

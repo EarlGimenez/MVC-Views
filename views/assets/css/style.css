@@ -596,3 +596,10 @@ body {
     padding-bottom: 1rem;
   }
 }
+
+.modal-success {
+    background-color: #28a745 !important;
+}
+.modal-error {
+    background-color: #dc3545 !important;
+}

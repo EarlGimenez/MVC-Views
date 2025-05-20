@@ -4,8 +4,8 @@ include 'includes/header.php';
 ?>
 
 <div class="error-container">
-    <h1 class="error-title">NOT AUTHORIZED</h1>
-    <p>You don't have permission to access this page.</p>
+    <h1 class="error-title">NOT FOUND</h1>
+    <p>This page does not exist.</p>
     <a href="/" class="btn" style="margin-top: 1rem;">Back to Home</a>
 </div>
 

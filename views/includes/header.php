@@ -14,6 +14,13 @@ $is_student_page = ($current_dir === 'students');
     <title><?php echo isset($page_title) ? $page_title : 'CitrusApp'; ?></title>
     <!-- Adjust the path based on your folder structure -->
     <link rel="stylesheet" href="/views/assets/css/style.css">
+
+    <!-- bootstrap hehehe -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </head>
 <body>
     <header class="header">
@@ -38,5 +45,31 @@ $is_student_page = ($current_dir === 'students');
             </nav>
         </div>
     </header>
+
+    <?php if (isset($_SESSION['message']) && isset($_SESSION['message_type'])): ?>
+            <div class="modal show" id="messageModal" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header <?= $_SESSION['message_type'] === 'success' ? 'modal-success' : 'modal-error'; ?>" style="color: #fff;">                        <h5 class="modal-title"><?php echo ucfirst($_SESSION['message_type']) ?></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p><?php echo $_SESSION['message'] ?></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <?php 
+        unset($_SESSION['message']);
+        unset($_SESSION['message_type']);
+    endif; 
+    ?>
+
+
     <main class="main">
         <div class="container">

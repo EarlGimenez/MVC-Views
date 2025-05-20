@@ -10,10 +10,19 @@ include dirname(__DIR__) . '/includes/header.php';
         <form action="/students" method="POST">
             <div class="form-group">
                 <?php
+                    $columns = array_unique($columns);
+                    if (!empty($students)) {
+                        $ordered = array_keys($students[0]);
+                        $columns = array_merge(
+                            $ordered,
+                            array_diff($columns, $ordered)
+                        );
+                    }
+                    
                     foreach ($columns as $column) {
                         echo "
-                        <label for=\"".$column."\">".$column."</label>
-                        <input type=\"text\" id=\"".$column."\" name=\"".$column."\" class=\"form-control\" placeholer=\"Enter student". $column ."\" required>
+                        <label for=\"".$column."\">".ucfirst($column)."</label>
+                        <input type=\"text\" id=\"".$column."\" name=\"".$column."\" class=\"form-control\" placeholder=\"Enter student " . $column . "\">
                         ";
                     }
                 ?>
@@ -28,5 +37,3 @@ include dirname(__DIR__) . '/includes/header.php';
 </section>
 
 <?php include dirname(__DIR__) . '/includes/footer.php'; ?>
-
-

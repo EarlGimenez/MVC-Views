@@ -28,10 +28,8 @@ class ViewController {
         include __DIR__ . '/../views/students/index.php';
         exit;
     }
-
-    public function studentsCreate($columns) {
-        include __DIR__ . '/../views/students/create.php';
-        exit;
+    public function studentsCreate($columns, $students) {
+        include dirname(__DIR__) . '/views/students/create.php';
     }
 
     public function studentsShow($student) {

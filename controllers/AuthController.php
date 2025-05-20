@@ -16,15 +16,24 @@ class AuthController {
         $this->request = $request;
     }
 
-    public function login(){
+    public function login() {
         $controller = new ViewController;
         $data = $_POST;
+
+        if ($data === null) {
+            $_SESSION['message'] = 'No data received.';
+            $_SESSION['message_type'] = 'error';
+            $controller->redirect('/');
+            exit();
+        }
         
         $user = $this->repository->getByUsername($data['username']);
 
         if (empty($user) || !password_verify($data['password'], $user[0]['password'])) {
-            $_SESSION['invalid_login'] = "Wrong Password. Try Again!";
+            $_SESSION['message'] = "Wrong Password. Try Again!";
+            $_SESSION['message_type'] = 'error';
             $controller->redirect('/');
+            return;
         }
 
         $_SESSION['user_id'] = $user[0]['id'];
@@ -35,11 +44,26 @@ class AuthController {
     public function register() {
         $controller = new ViewController;
         $data = $_POST;
+        if ($data === null) {
+            $_SESSION['message'] = 'No data received.';
+            $_SESSION['message_type'] = 'error';
+            $controller->redirect('/');
+            exit();
+        }
+
+        if($data['confirmpassword']!==$data['password'] || empty($data['confirmpassword']) || empty($data['password'])) {
+            $_SESSION['message'] = "Passwords do not match. Please try again!";
+            $_SESSION['message_type'] = 'error';
+            $controller->redirect('/');
+            return;
+        }
 
         $existingUser = $this->repository->getByUsername($data['username']);
         if (!empty($existingUser)) {
-            $_SESSION['invalid_register'] = "Username already taken. Please try again!";
+            $_SESSION['message'] = "Username already taken. Please try again!";
+            $_SESSION['message_type'] = 'error';
             $controller->redirect('/');
+            return;
         }
 
         $data['password'] = password_hash($data['password'], PASSWORD_BCRYPT);

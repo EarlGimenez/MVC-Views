@@ -38,7 +38,7 @@ class Router {
                         $middleware = new $middlewareClass();
                         $response = $middleware->handle($this->request);
                         if ($response instanceof Response) {
-                            return $response; // Redirect or reject
+                            return $response; 
                         }
                     }
                 }
